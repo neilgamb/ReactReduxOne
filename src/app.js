@@ -13,8 +13,11 @@ class YouTube extends Component {
             selectedVideo: null,
             videos: []
         };
+        this.videoSearch('surfboards');
+    }
 
-        YTSearch({ key: API_KEY, term: 'surfboards' }, (videos) => { // same as function(videos) {...} ES6
+    videoSearch(term) {
+        YTSearch({ key: API_KEY, term: term }, (videos) => { // same as function(videos) {...} ES6
             // this.setState({ videos: videos }); ES6 allows just:
             this.setState({
                 videos: videos,
@@ -26,7 +29,7 @@ class YouTube extends Component {
     render() {
         return (
             <div>
-                <SearchBar />
+                <SearchBar onSearchTermChange={term => this.videoSearch(term)} />
                 <VideoDetail video={this.state.selectedVideo} />
                 <VideoList
                     onVideoSelect={selectedVideo => this.setState({ selectedVideo })}

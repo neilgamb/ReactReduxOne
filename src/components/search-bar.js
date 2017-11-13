@@ -18,13 +18,16 @@ class SearchBar extends Component {  // see line 3 comments
 
         this.state = { term: '' }; // only time you use this syntax to set value of state! otherwise, use setState()
     }
+    onInputChange(term) {
+        this.setState({ term });
+        this.props.onSearchTermChange(term);
+    }
     render() {  // what is run when a component is re-renders
         return (
-            <div>
+            <div className="search-bar">
                 <input
                     value={this.state.term}
-                    onChange={event => this.setState({ term: event.target.value })} />
-                Value of input: {this.state.term}
+                    onChange={event => this.onInputChange(event.target.value)} />
             </div>
         );
     }
