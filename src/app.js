@@ -8,38 +8,38 @@ import _ from 'lodash';
 const API_KEY = 'AIzaSyCgJSb9wOBtoqynnb7TnA89AiTbaHiBncA';
 
 class YouTube extends Component {
-    constructor(props) {
-        super(props)
+    constructor(props)
+    super(props)
         this.state = {
-            selectedVideo: null,
-            videos: []
-        };
-        this.videoSearch('surfboards'); // initial search term
+    selectedVideo: null,
+    videos: []
+};
+this.videoSearch('surfboards'); // initial search term
     }
 
-    videoSearch(term) {
-        YTSearch({ key: API_KEY, term: term }, (videos) => { // same as function(videos) {...} ES6
-            // this.setState({ videos: videos }); ES6 allows just:
-            this.setState({
-                videos: videos,
-                selectedVideo: videos[0]
-            });
-        })
-    }
+videoSearch(term) {
+    YTSearch({ key: API_KEY, term: term }, (videos) => { // same as function(videos) {...} ES6
+        // this.setState({ videos: videos }); ES6 allows just:
+        this.setState({
+            videos: videos,
+            selectedVideo: videos[0]
+        });
+    })
+}
 
-    render() {
-        const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
+render() {
+    const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
 
-        return (
-            <div>
-                <SearchBar onSearchTermChange={videoSearch} />
-                <VideoDetail video={this.state.selectedVideo} />
-                <VideoList
-                    onVideoSelect={selectedVideo => this.setState({ selectedVideo })}
-                    videos={this.state.videos} />  {/* passing data is known as passing 'props'*/}
-            </div>
-        );
-    }
+    return (
+        <div>
+            <SearchBar onSearchTermChange={videoSearch} />
+            <VideoDetail video={this.state.selectedVideo} />
+            <VideoList
+                onVideoSelect={selectedVideo => this.setState({ selectedVideo })}
+                videos={this.state.videos} />  {/* passing data is known as passing 'props'*/}
+        </div>
+    );
+}
 }
 
 ReactDOM.render(<YouTube />, document.querySelector('.container'))
